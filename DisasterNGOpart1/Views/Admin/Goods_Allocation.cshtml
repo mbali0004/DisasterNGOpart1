@@ -1,0 +1,83 @@
+﻿@model DisasterNGOpart1.Models.Goods_Allocation
+
+@{
+    ViewBag.Title = "Goods_Allocation";
+}
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
+
+<form @*action="/Admin/AllocateGoods" method="post" class="form"*@>
+    <h2>Goods_Allocation</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Goods_Allocation</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.GoodsAll_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.GoodsAll_ID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.GoodsAll_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.GoodsAll_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.GoodsAll_Date, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.GoodsAll_Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.No_of_item, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.No_of_item, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.No_of_item, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Disaster_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @if (ViewBag.Disaster_List != null)
+                    {
+                        @Html.DropDownListFor(model => model.Disaster_ID, (SelectList)ViewBag.Disaster_List, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+
+                    @Html.ValidationMessageFor(model => model.Disaster_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.GoodsAll_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @if (ViewBag.Disaster_List != null)
+                    {
+                        @Html.DropDownListFor(model => model.GoodsAll_ID, (SelectList)ViewBag.Goods_List, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+
+                    @Html.ValidationMessageFor(model => model.GoodsAll_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</form>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

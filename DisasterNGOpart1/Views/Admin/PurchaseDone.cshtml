@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "PurchaseDone";
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/Site.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <style>
+        body {
+            text-align: center;
+            align-content: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>PurchaseDone</h2>
+    <br />
+    <br />
+    <br />
+    <p>Your purchase has been successfully captured! </p>
+    <br />
+    <br />
+    <br />
+    <p>Remaing Amount is: @(((decimal)ViewBag.upt).ToString("C")) </p>
+    <div>
+        @Html.ActionLink("Back to home", "Index")
+    </div>
+</body>

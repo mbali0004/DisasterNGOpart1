@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DisasterNGOpart1.Models.Goods_Allocation>
+
+@{
+    ViewBag.Title = "DisplayGoods_Allocation_list";
+}
+
+<h2>DisplayGoods_Allocation_list</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GoodsAll_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.No_of_item)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Disaster.Dis_Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GoodsDonations.Category)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GoodsAll_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.No_of_item)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Disaster.Dis_Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GoodsDonations.Category)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /*id = item.GoodsAll_ID */}) |
+            @Html.ActionLink("Details", "Details", new { /*id = item.GoodsAll_ID */}) |
+            @Html.ActionLink("Delete", "Delete", new { /*id = item.GoodsAll_ID */})
+        </td>
+    </tr>
+}
+
+</table>

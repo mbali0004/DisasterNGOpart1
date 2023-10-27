@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DisasterNGOpart1.Models.Mon_Allocation>
+
+@{
+    ViewBag.Title = "DisplayMon_Allocation_list";
+}
+
+<h2>DisplayMon_Allocation_list</h2>
+
+<p>
+    @Html.ActionLink("Create New", "DisplayMon_Allocation")
+</p>
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MonAll_Amt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MonAll_Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Disaster.Dis_Description)
+            </th>
+            <th></th>
+        </tr>
+    }
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonAll_Amt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonAll_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Disaster.Dis_Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MonAll_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MonAll_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MonAll_ID })
+            </td>
+        </tr>
+    }
+
+</table>

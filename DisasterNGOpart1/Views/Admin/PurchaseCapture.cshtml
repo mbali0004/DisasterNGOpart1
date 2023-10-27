@@ -1,0 +1,91 @@
+﻿@model DisasterNGOpart1.Models.Goods_Purchase
+
+@{
+    ViewBag.Title = "PurchaseCaputer";
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/Site.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <style>
+        .form-group {
+            align-content: center;
+            text-align: center;
+        }
+
+        .form-control {
+            display: block;
+            padding: 12px 15px;
+            width: 100%;
+            left: 50%;
+            border-radius: 10px;
+            /*margin-top: 20px;*/
+            border: 1.5px solid rgb(109, 87, 121);
+            outline: none;
+            background: #19052c;
+            color: #ffff;
+        }
+    </style>
+</head>
+
+<form action="/Admin/PurchaseCapture" method="post"  class="form">
+    <h2>Goods Purchases</h2>
+    <br />
+    <br />
+    <br />
+    @*@using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()*@
+
+    <div class="form-horizontal">
+        @*<h4>Goods_Purchase</h4>
+        <hr />*@
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.GoodsName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GoodsName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GoodsName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DisasterId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DisasterId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DisasterId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div>
+        @Html.ActionLink("Back to home", "Index")
+    </div>
+
+</form>
+
+

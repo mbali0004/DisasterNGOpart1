@@ -1,0 +1,460 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="djpromoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Disaster">
+          <Key>
+            <PropertyRef Name="Disaster_ID" />
+          </Key>
+          <Property Name="Disaster_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="Location" Type="nvarchar" MaxLength="200" />
+          <Property Name="Dis_Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="AidTypes" Type="nvarchar" MaxLength="200" />
+          <Property Name="Username" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Goods_Allocation">
+          <Key>
+            <PropertyRef Name="GoodsAll_ID" />
+          </Key>
+          <Property Name="GoodsAll_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GoodsAll_Date" Type="date" />
+          <Property Name="No_of_item" Type="int" />
+          <Property Name="Disaster_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Goods_Donations">
+          <Key>
+            <PropertyRef Name="Goods_ID" />
+          </Key>
+          <Property Name="Goods_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Good_Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Goods_Date" Type="date" />
+          <Property Name="No_of_items" Type="int" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="200" />
+          <Property Name="Item_description" Type="nvarchar" MaxLength="200" />
+          <Property Name="Username" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Goods_Purchase">
+          <Key>
+            <PropertyRef Name="GoodsPur_ID" />
+          </Key>
+          <Property Name="GoodsPur_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GoodsPurch_Amt" Type="money" />
+          <Property Name="GoodsPurch_Date" Type="date" />
+          <Property Name="No_of_items" Type="int" />
+          <Property Name="Disaster_ID" Type="int" />
+          <Property Name="Goods_ID" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'djpromo.dbo.Login_' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Login_">
+          <Property Name="Username" Type="nvarchar" MaxLength="200" />
+          <Property Name="Log_Password" Type="nvarchar" MaxLength="200" />
+        </EntityType>-->
+        <EntityType Name="Mon_Allocation">
+          <Key>
+            <PropertyRef Name="MonAll_ID" />
+          </Key>
+          <Property Name="MonAll_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MonAll_Amt" Type="money" />
+          <Property Name="MonAll_Date" Type="date" />
+          <Property Name="Disaster_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mon_Donation">
+          <Key>
+            <PropertyRef Name="Mon_ID" />
+          </Key>
+          <Property Name="Mon_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mon_Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Username" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Mon_Date" Type="date" />
+          <Property Name="Mon_Amt" Type="money" />
+        </EntityType>
+        <EntityType Name="Register">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" />
+          <Property Name="Reg_Password" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Registers">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" />
+          <Property Name="Password" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__Disaster__Userna__5E8A0973">
+          <End Role="Register" Type="Self.Register" Multiplicity="1" />
+          <End Role="Disaster" Type="Self.Disaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Register">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Disaster">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Goods_Don__Usern__1B9317B3">
+          <End Role="Register" Type="Self.Register" Multiplicity="1" />
+          <End Role="Goods_Donations" Type="Self.Goods_Donations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Register">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Goods_Donations">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mon_Donat__Usern__1E6F845E">
+          <End Role="Register" Type="Self.Register" Multiplicity="1" />
+          <End Role="Mon_Donation" Type="Self.Mon_Donation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Register">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Mon_Donation">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="djpromoModelStoreContainer">
+          <EntitySet Name="Disaster" EntityType="Self.Disaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Goods_Allocation" EntityType="Self.Goods_Allocation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Goods_Donations" EntityType="Self.Goods_Donations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Goods_Purchase" EntityType="Self.Goods_Purchase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mon_Allocation" EntityType="Self.Mon_Allocation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mon_Donation" EntityType="Self.Mon_Donation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Register" EntityType="Self.Register" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Registers" EntityType="Self.Registers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Disaster__Userna__5E8A0973" Association="Self.FK__Disaster__Userna__5E8A0973">
+            <End Role="Register" EntitySet="Register" />
+            <End Role="Disaster" EntitySet="Disaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Goods_Don__Usern__1B9317B3" Association="Self.FK__Goods_Don__Usern__1B9317B3">
+            <End Role="Register" EntitySet="Register" />
+            <End Role="Goods_Donations" EntitySet="Goods_Donations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mon_Donat__Usern__1E6F845E" Association="Self.FK__Mon_Donat__Usern__1E6F845E">
+            <End Role="Register" EntitySet="Register" />
+            <End Role="Mon_Donation" EntitySet="Mon_Donation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="djpromoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Disaster">
+          <Key>
+            <PropertyRef Name="Disaster_ID" />
+          </Key>
+          <Property Name="Disaster_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Dis_Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AidTypes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Register" Relationship="Self.FK__Disaster__Userna__5E8A0973" FromRole="Disaster" ToRole="Register" />
+        </EntityType>
+        <EntityType Name="Goods_Allocation">
+          <Key>
+            <PropertyRef Name="GoodsAll_ID" />
+          </Key>
+          <Property Name="GoodsAll_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoodsAll_Date" Type="DateTime" Precision="0" />
+          <Property Name="No_of_item" Type="Int32" />
+          <Property Name="Disaster_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Goods_Donations">
+          <Key>
+            <PropertyRef Name="Goods_ID" />
+          </Key>
+          <Property Name="Goods_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Good_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Goods_Date" Type="DateTime" Precision="0" />
+          <Property Name="No_of_items" Type="Int32" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Item_description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Register" Relationship="Self.FK__Goods_Don__Usern__1B9317B3" FromRole="Goods_Donations" ToRole="Register" />
+        </EntityType>
+        <EntityType Name="Goods_Purchase">
+          <Key>
+            <PropertyRef Name="GoodsPur_ID" />
+          </Key>
+          <Property Name="GoodsPur_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoodsPurch_Amt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="GoodsPurch_Date" Type="DateTime" Precision="0" />
+          <Property Name="No_of_items" Type="Int32" />
+          <Property Name="Disaster_ID" Type="Int32" />
+          <Property Name="Goods_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Mon_Allocation">
+          <Key>
+            <PropertyRef Name="MonAll_ID" />
+          </Key>
+          <Property Name="MonAll_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MonAll_Amt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MonAll_Date" Type="DateTime" Precision="0" />
+          <Property Name="Disaster_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mon_Donation">
+          <Key>
+            <PropertyRef Name="Mon_ID" />
+          </Key>
+          <Property Name="Mon_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mon_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mon_Date" Type="DateTime" Precision="0" />
+          <Property Name="Mon_Amt" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Register" Relationship="Self.FK__Mon_Donat__Usern__1E6F845E" FromRole="Mon_Donation" ToRole="Register" />
+        </EntityType>
+        <EntityType Name="Register">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Reg_Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Disasters" Relationship="Self.FK__Disaster__Userna__5E8A0973" FromRole="Register" ToRole="Disaster" />
+          <NavigationProperty Name="Goods_Donations" Relationship="Self.FK__Goods_Don__Usern__1B9317B3" FromRole="Register" ToRole="Goods_Donations" />
+          <NavigationProperty Name="Mon_Donation" Relationship="Self.FK__Mon_Donat__Usern__1E6F845E" FromRole="Register" ToRole="Mon_Donation" />
+        </EntityType>
+        <EntityType Name="Register1">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__Disaster__Userna__5E8A0973">
+          <End Role="Register" Type="Self.Register" Multiplicity="1" />
+          <End Role="Disaster" Type="Self.Disaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Register">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Disaster">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Goods_Don__Usern__1B9317B3">
+          <End Role="Register" Type="Self.Register" Multiplicity="1" />
+          <End Role="Goods_Donations" Type="Self.Goods_Donations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Register">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Goods_Donations">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mon_Donat__Usern__1E6F845E">
+          <End Role="Register" Type="Self.Register" Multiplicity="1" />
+          <End Role="Mon_Donation" Type="Self.Mon_Donation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Register">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Mon_Donation">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DAFEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Disasters" EntityType="Self.Disaster" />
+          <EntitySet Name="Goods_Allocation" EntityType="Self.Goods_Allocation" />
+          <EntitySet Name="Goods_Donations" EntityType="Self.Goods_Donations" />
+          <EntitySet Name="Goods_Purchase" EntityType="Self.Goods_Purchase" />
+          <EntitySet Name="Mon_Allocation" EntityType="Self.Mon_Allocation" />
+          <EntitySet Name="Mon_Donation" EntityType="Self.Mon_Donation" />
+          <EntitySet Name="Registers" EntityType="Self.Register" />
+          <EntitySet Name="Registers1" EntityType="Self.Register1" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK__Disaster__Userna__5E8A0973" Association="Self.FK__Disaster__Userna__5E8A0973">
+            <End Role="Register" EntitySet="Registers" />
+            <End Role="Disaster" EntitySet="Disasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Goods_Don__Usern__1B9317B3" Association="Self.FK__Goods_Don__Usern__1B9317B3">
+            <End Role="Register" EntitySet="Registers" />
+            <End Role="Goods_Donations" EntitySet="Goods_Donations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mon_Donat__Usern__1E6F845E" Association="Self.FK__Mon_Donat__Usern__1E6F845E">
+            <End Role="Register" EntitySet="Registers" />
+            <End Role="Mon_Donation" EntitySet="Mon_Donation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="djpromoModelStoreContainer" CdmEntityContainer="DAFEntities">
+          <EntitySetMapping Name="Disasters">
+            <EntityTypeMapping TypeName="djpromoModel.Disaster">
+              <MappingFragment StoreEntitySet="Disaster">
+                <ScalarProperty Name="Disaster_ID" ColumnName="Disaster_ID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Dis_Description" ColumnName="Dis_Description" />
+                <ScalarProperty Name="AidTypes" ColumnName="AidTypes" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Goods_Allocation">
+            <EntityTypeMapping TypeName="djpromoModel.Goods_Allocation">
+              <MappingFragment StoreEntitySet="Goods_Allocation">
+                <ScalarProperty Name="GoodsAll_ID" ColumnName="GoodsAll_ID" />
+                <ScalarProperty Name="GoodsAll_Date" ColumnName="GoodsAll_Date" />
+                <ScalarProperty Name="No_of_item" ColumnName="No_of_item" />
+                <ScalarProperty Name="Disaster_ID" ColumnName="Disaster_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Goods_Donations">
+            <EntityTypeMapping TypeName="djpromoModel.Goods_Donations">
+              <MappingFragment StoreEntitySet="Goods_Donations">
+                <ScalarProperty Name="Goods_ID" ColumnName="Goods_ID" />
+                <ScalarProperty Name="Good_Name" ColumnName="Good_Name" />
+                <ScalarProperty Name="Goods_Date" ColumnName="Goods_Date" />
+                <ScalarProperty Name="No_of_items" ColumnName="No_of_items" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Item_description" ColumnName="Item_description" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Goods_Purchase">
+            <EntityTypeMapping TypeName="djpromoModel.Goods_Purchase">
+              <MappingFragment StoreEntitySet="Goods_Purchase">
+                <ScalarProperty Name="GoodsPur_ID" ColumnName="GoodsPur_ID" />
+                <ScalarProperty Name="GoodsPurch_Amt" ColumnName="GoodsPurch_Amt" />
+                <ScalarProperty Name="GoodsPurch_Date" ColumnName="GoodsPurch_Date" />
+                <ScalarProperty Name="No_of_items" ColumnName="No_of_items" />
+                <ScalarProperty Name="Disaster_ID" ColumnName="Disaster_ID" />
+                <ScalarProperty Name="Goods_ID" ColumnName="Goods_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mon_Allocation">
+            <EntityTypeMapping TypeName="djpromoModel.Mon_Allocation">
+              <MappingFragment StoreEntitySet="Mon_Allocation">
+                <ScalarProperty Name="MonAll_ID" ColumnName="MonAll_ID" />
+                <ScalarProperty Name="MonAll_Amt" ColumnName="MonAll_Amt" />
+                <ScalarProperty Name="MonAll_Date" ColumnName="MonAll_Date" />
+                <ScalarProperty Name="Disaster_ID" ColumnName="Disaster_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mon_Donation">
+            <EntityTypeMapping TypeName="djpromoModel.Mon_Donation">
+              <MappingFragment StoreEntitySet="Mon_Donation">
+                <ScalarProperty Name="Mon_ID" ColumnName="Mon_ID" />
+                <ScalarProperty Name="Mon_Name" ColumnName="Mon_Name" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Mon_Date" ColumnName="Mon_Date" />
+                <ScalarProperty Name="Mon_Amt" ColumnName="Mon_Amt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Registers">
+            <EntityTypeMapping TypeName="djpromoModel.Register">
+              <MappingFragment StoreEntitySet="Register">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Reg_Password" ColumnName="Reg_Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Registers1">
+            <EntityTypeMapping TypeName="djpromoModel.Register1">
+              <MappingFragment StoreEntitySet="Registers">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="djpromoModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

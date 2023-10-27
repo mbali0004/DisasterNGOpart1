@@ -1,0 +1,52 @@
+﻿@model IEnumerable<DisasterNGOpart1.Models.Mon_Donation>
+
+@{
+    ViewBag.Title = "Mon_Donation_list";
+}
+
+<h2>Mon_Donation_list</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Mon_Donation")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Mon_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mon_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mon_Amt)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Annonymous)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mon_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mon_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mon_Amt)
+        </td>
+        <th>
+            @Html.DisplayNameFor(model => model.Annonymous)
+        </th>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /*id = item.Mon_ID */}) |
+            @Html.ActionLink("Details", "Details", new {/*id = item.Mon_ID */}) |
+            @Html.ActionLink("Delete", "Delete", new { /*id = item.Mon_ID */})
+        </td>
+    </tr>
+}
+
+</table>

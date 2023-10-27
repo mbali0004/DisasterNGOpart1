@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron" style="background-image: url('../css/image/pic.jpg')" >
+    <h1 style="color:orange"><b>Disaster Alleviation Foundation</b></h1>
+
+    <p class="lead" style="color:white">
+        <b>
+            Disaster Alleviation Foundation non-profit organisation that focuses on the issuing out patrons affected by the disaster with perishable, non-perishable foods and goods.
+            The goods and monetary donations supplied are to bridge the gap of goods (food and clothes) shortage and the monetary donations transffered into the NGO organisation
+            to assist the organisation with other expenses to repair destroyed belongings of the patrons.
+        </b>
+    </p>
+
+    <p><a href="/Admin/About" class="btn btn-primary btn-lg" style="background-color: darkorange; ">About Us &raquo;</a></p>
+</div>
+
+<div class=" row">
+    <div class="col-md-4">
+        <h2>Disasters</h2>
+        <p>
+            This disaster list shows all natural disasters captured by the administration of the NGO that occured provincially or within the neighboring area and the donator who contributed to payment and donations to restore the damage the disaster has made to the patrons
+        </p>
+        <p><a href="/Admin/Disaster" class="btn btn-primary btn-lg" style="background-color:darkorange; ">Disaster &raquo;</a></p>
+</div>
+
+<div class="col-md-4">
+    <h2>Goods Donations</h2>
+    <p>This Goods Donations list displays all good donations captured by the administration of the NGO donated by the donators to the organisation whether it is non-perisable or perishable foods  </p>
+    <p><a href="/Admin/Goods_Donations" class="btn btn-primary btn-lg" style="background-color: darkorange; ">Goods Donations &raquo;</a></p>
+</div>
+
+<div class="col-md-4">
+    <h2>Monetary Donations</h2>
+    <p>This Monetary Donations list displays all monetary donators captured by the administration of the NGO towards the organisation to speed up the recovery process for any patrons affected by the natural disaster</p>
+    <p><a href="/Admin/Mon_Donation" class="btn btn-primary btn-lg" style="background-color: darkorange; ">Monetary Donations &raquo;</a></p>
+</div>
+</div>
+
+

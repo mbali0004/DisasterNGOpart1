@@ -1,0 +1,59 @@
+﻿@model IEnumerable<DisasterNGOpart1.Models.Disaster>
+
+@{
+    ViewBag.Title = "Disaster_list";
+}
+
+<h2>Disaster_list</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Disaster")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dis_Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AidTypes)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dis_Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AidTypes)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /*id=item.Disaster_ID*/ }) |
+            @Html.ActionLink("Details", "Details", new { /*id=item.Disaster_ID */}) |
+            @Html.ActionLink("Delete", "Delete", new { /*id=item.Disaster_ID*/ })
+        </td>
+    </tr>
+}
+
+</table>
