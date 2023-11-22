@@ -767,7 +767,7 @@ namespace DisasterNGOpart1.Controllers
             {
                 return RedirectToAction("Index");
             }
-             
+              
             SqlCommand cmd;
             string connectionstring = "Server=tcp:st10152771.database.windows.net,1433;Initial Catalog=djpromo;Persist Security Info=False;User ID=djadmin;Password=Mazibuko@9300;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             SqlConnection conn = new SqlConnection(connectionstring);
