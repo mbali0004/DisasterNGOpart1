@@ -754,7 +754,7 @@ namespace DisasterNGOpart1.Controllers
         }
         [HttpGet]
         public ActionResult AllocateGoods()
-        {
+          {
             return View();
         }
 
@@ -794,24 +794,77 @@ namespace DisasterNGOpart1.Controllers
                 decimal AvaAmount = 10000 * 20;
                 return AvaAmount;
             }
-        }
+            
 
+                AvailMoney(avaAmount - purchase.Amount);
+            decimal go = avaAmount - purchase.Amount;
+            ViewBag.go = go;
+            return View("PurchaseDone");
+
+
+
+            decimal CalAvailMoney()
+            {
+                decimal AvaAmount = 10000 * 20;
+                return AvaAmount;
+            }
+
+            AvaActiveDis(avaAmount - purchase.Amount);
+            decimal dis = avaAmount - purchase.Amount;
+            ViewBag.dis = dis;
+            return View("PurchaseDone");
+
+
+
+            decimal CalAvaActiveDis()
+            {
+                decimal AvaAmount = 10000 * 20;
+                return AvaAmount;
+            }
+        }
         private void UpdatedAvaAmount(decimal NewAmount)
         {
 
         }
+
+
+        private void CalAvailMoney(decimal NewAmount)
+        {
+
+        }
+
+        private void AvailMoney(decimal NewAmount)
+        {
+
+        }
+
+        private void AvaActiveDis(decimal NewAmount)
+        {
+
+        }
+
+
+        private void CalAvaActiveDis(decimal NewAmount)
+        {
+
+        }
+
+
 
         [HttpGet]
         public ActionResult PurchaseCapture()
         {
             return View();
         }
+       
+        [HttpPost]
+        
+        [HttpGet]
+        public ActionResult MonPurchaseCapture()
+        {
+            return View();
+        }
+        [HttpPost]  
+
 
     }
-
-}
-
-
-
-
-
