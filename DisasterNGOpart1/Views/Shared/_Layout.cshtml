@@ -12,7 +12,8 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark " >
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Admin" asp-action="Index"></a>
+
+            @Html.ActionLink("Disaster Alleviation Foundation", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -27,7 +28,6 @@
                     <li>@Html.ActionLink("AllocateGoods", "AllocateGoods", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("AllocateMoney", "AllocateMoney", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("PurchaseCapture", "PurchaseCapture", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Information", "Infomation", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
 
                 </ul>
 
