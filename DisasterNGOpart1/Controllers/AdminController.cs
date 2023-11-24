@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Windows;
 using System.Security.Cryptography;
+using static DisasterNGOpart1.Controllers.InfoModel;
+
 namespace DisasterNGOpart1.Controllers
 {
     //begining of part 1
@@ -543,14 +545,14 @@ namespace DisasterNGOpart1.Controllers
             return Redirect("Index");
 
         }
-        public ActionResult Mon_Donation_Details(string Username)
-        {
-            DAFEntities db = new DAFEntities();
-            Mon_Donation good = db.Mon_Donation.Where(d => d.Username == Username).FirstOrDefault();
+        //public ActionResult Mon_Donation_Details(string Username)
+        //{
+        //    DAFEntities db = new DAFEntities();
+        //    Mon_Donation good = db.Mon_Donation.Where(d => d.Username == Username).FirstOrDefault();
 
-            db.Dispose();
-            return View(good);
-        }
+        //    db.Dispose();
+        //    return View(good);
+        //}
 
         //begining of part 2
         //public ActionResult Mon_Allocation()
@@ -611,7 +613,7 @@ namespace DisasterNGOpart1.Controllers
 
         //}
         //public ActionResult Goods_Purchase()
-        //{
+        ////{
         //    var balance = dbs.Mon_Donation.Select(money => money.Mon_Date).Sum() - dbs.Mon_Allocation.Select(allo => allo.MonAll_Amt).Sum() - dbs.Goods_Purchase.Select(purch => purch.GoodsPurch_Amt).Sum();
         //    ViewBag.Available = balance;
         //    var disasters = balance.Disasters.ToList();
@@ -707,8 +709,10 @@ namespace DisasterNGOpart1.Controllers
 
         //Allocate Money
         [HttpPost]
-        public ActionResult AllocateMoney(Mon_Allocation mon_Allocation)
+        public ActionResult Mon_Allocation(Mon_Allocation mon_Allocation)
         {
+
+
             SqlCommand cmd;
             string connectionstring = "Server=tcp:st10152771.database.windows.net,1433;Initial Catalog=djpromo;Persist Security Info=False;User ID=djadmin;Password=Mazibuko@9300;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             SqlConnection conn = new SqlConnection(connectionstring);
@@ -729,7 +733,40 @@ namespace DisasterNGOpart1.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult PurchaseCapture2(Mon_Allocation purch)
+        {
+          
+            decimal avaAmount = CalAvaAmount2();
+            if (purch.MonAll_Amt > avaAmount)
+            {
+                return RedirectToAction("Index");
+            }
 
+            SqlCommand cmd;
+            string connectionstring = "Server=tcp:st10152771.database.windows.net,1433;Initial Catalog=djpromo;Persist Security Info=False;User ID=djadmin;Password=Mazibuko@9300;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            SqlConnection conn = new SqlConnection(connectionstring);
+            conn.Open();//open connection
+            string query = "INSERT INTO MoneyAllocate (DisasterID,AllocatedMoney) VALUES (@DisasterID,@AllocatedMoney)";
+            cmd = new SqlCommand(query, conn);//using the command 
+
+            cmd.Parameters.AddWithValue("@DisasterID", purch.DisasterId);
+            cmd.Parameters.AddWithValue("@AllocatedMoney", purch.AllocatedAmount);
+
+            cmd.ExecuteNonQuery();
+            conn.Close();//Close connecting
+
+            UpdatedAvaAmount2((decimal)(avaAmount - purch.MonAll_Amt));
+            decimal upt = (decimal)(avaAmount - purch.MonAll_Amt);
+            ViewBag.upt = upt;
+            return View("PurchaseDone");
+
+            decimal CalAvaAmount2()
+            {
+                decimal AvaAmount = 0;
+                return AvaAmount;
+            }
+        }
         //Alocate Goods
         [HttpPost]
         public ActionResult AllocateGoods(Goods_Allocation goodsAllocation)
@@ -754,7 +791,7 @@ namespace DisasterNGOpart1.Controllers
         }
         [HttpGet]
         public ActionResult AllocateGoods()
-          {
+        {
             return View();
         }
 
@@ -767,7 +804,7 @@ namespace DisasterNGOpart1.Controllers
             {
                 return RedirectToAction("Index");
             }
-               
+
             SqlCommand cmd;
             string connectionstring = "Server=tcp:st10152771.database.windows.net,1433;Initial Catalog=djpromo;Persist Security Info=False;User ID=djadmin;Password=Mazibuko@9300;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             SqlConnection conn = new SqlConnection(connectionstring);
@@ -794,33 +831,7 @@ namespace DisasterNGOpart1.Controllers
                 decimal AvaAmount = 10000 * 20;
                 return AvaAmount;
             }
-            
 
-                AvailMoney(avaAmount - purchase.Amount);
-            decimal go = avaAmount - purchase.Amount;
-            ViewBag.go = go;
-            return View("PurchaseDone");
-
-
-
-            decimal CalAvailMoney()
-            {
-                decimal AvaAmount = 10000 * 20;
-                return AvaAmount;
-            }
-
-            AvaActiveDis(avaAmount - purchase.Amount);
-            decimal dis = avaAmount - purchase.Amount;
-            ViewBag.dis = dis;
-            return View("PurchaseDone");
-
-
-
-            decimal CalAvaActiveDis()
-            {
-                decimal AvaAmount = 10000 * 20;
-                return AvaAmount;
-            }
         }
         private void UpdatedAvaAmount(decimal NewAmount)
         {
@@ -828,23 +839,16 @@ namespace DisasterNGOpart1.Controllers
         }
 
 
-        private void CalAvailMoney(decimal NewAmount)
+
+        private void UpdatedAvaAmount2(decimal NewAmount)
         {
 
         }
-
-        private void AvailMoney(decimal NewAmount)
+        private void CalAvaAmount(decimal NewAmount)
         {
 
         }
-
-        private void AvaActiveDis(decimal NewAmount)
-        {
-
-        }
-
-
-        private void CalAvaActiveDis(decimal NewAmount)
+        private void CalAvaAmount2(decimal NewAmount)
         {
 
         }
@@ -856,15 +860,62 @@ namespace DisasterNGOpart1.Controllers
         {
             return View();
         }
-       
-        [HttpPost]
-        
+
+
+
         [HttpGet]
         public ActionResult MonPurchaseCapture()
         {
             return View();
         }
-        [HttpPost]  
 
+        public ActionResult Infomation()
+        {
+            var model = new InfoModel
+            {
+                TotalMonetaryDonations = 50000.0,
+                TotalGoodsReceived = 1000,
+                ActiveDisasters = GetMockActiveDisasters()
+            };
+
+            return View(model);
+        }
+
+        private List<ActiveDisasterViewModel> GetMockActiveDisasters()
+        {
+            return new List<ActiveDisasterViewModel>
+        {
+            new ActiveDisasterViewModel { Name = "Heat Wave", MoneyAllocated = 20000.0, GoodsAllocated = 500 },
+            new ActiveDisasterViewModel { Name = "Flood", MoneyAllocated = 30000.0, GoodsAllocated = 700 },
+        };
+        }
+
+        //public async Task<IActionResult> PublicInfo()
+        //{
+        //    try
+        //    {
+        //        var model = new InfoModel();
+
+        //        // Total monetary donations received
+        //        model.TotalGoodsAllocated = await _context.MonetaryDonation.SumAsync(d => d.Amount);
+
+        //        // Total number of goods received
+        //        model.TotalMoneyAllocated = await _context.GoodsDonation.SumAsync(d => d.NumOfItems);
+
+        //        // Currently active disasters
+        //        model.ActiveDisasters = await _context.Disasters
+        //            .Where(d => d.ActiveDisasters)
+        //            .ToListAsync();
+
+        //        return View(model);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log the exception
+        //        _logger.LogError(ex, "An error occurred while retrieving public information.");
+        //        return View("Error");
+        //    }
+        ////}
+    }
 
     }

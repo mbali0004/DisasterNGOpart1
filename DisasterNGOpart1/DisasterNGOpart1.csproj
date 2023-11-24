@@ -172,6 +172,7 @@
     <Compile Include="Models\Goods_Purchase.cs">
       <DependentUpon>FoundationModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\InfoModel.cs" />
     <Compile Include="Models\Mon_Allocation.cs">
       <DependentUpon>FoundationModel.tt</DependentUpon>
     </Compile>
@@ -265,7 +266,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Regisiters.cshtml" />
     <Content Include="Views\Admin\RegisterUserList.cshtml" />
     <Content Include="Views\Admin\Register.cshtml" />
@@ -301,6 +302,7 @@
     <Content Include="Views\Admin\AllocateMoneySuccessView.cshtml" />
     <Content Include="Views\Admin\AllocateGoodsSuccessView.cshtml" />
     <Content Include="Views\Admin\Money_Purchase.cshtml" />
+    <Content Include="Views\Admin\Infomation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

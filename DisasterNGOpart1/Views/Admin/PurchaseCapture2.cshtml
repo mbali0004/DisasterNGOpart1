@@ -1,19 +1,48 @@
 ﻿@model DisasterNGOpart1.Models.Mon_Allocation
 
 @{
-    ViewBag.Title = "Money_Purchase";
+    ViewBag.Title = "Monetary Purchase";
 }
 
-<h2>Money_Purchase</h2>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/Site.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <style>
+        .form-group {
+            align-content: center;
+            text-align: center;
+        }
 
+        .form-control {
+            display: block;
+            padding: 12px 15px;
+            width: 100%;
+            left: 50%;
+            border-radius: 10px;
+            /*margin-top: 20px;*/
+            border: 1.5px solid rgb(109, 87, 121);
+            outline: none;
+            background: #19052c;
+            color: #ffff;
+        }
+    </style>
+</head>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
+<form action="/Admin/PurchaseCapture2" method="post" class="form">
+    <h2>Monetary Purchases</h2>
+    <br />
+    <br />
+    <br />
+    @*@using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()*@
+
 <div class="form-horizontal">
-    <h4>Mon_Allocation</h4>
-    <hr />
+    @*<h4>Money_Purchase</h4>
+        <hr />*@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(model => model.MonAll_Amt, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -34,38 +63,23 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Disaster_ID, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @if (ViewBag.Disaster_list != null)
-            {
-                @Html.EditorFor(model => model.Disaster_ID, new { htmlAttributes = new { @class = "form-control" } })
-            }
-
+            @Html.EditorFor(model => model.Disaster_ID, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Disaster_ID, "", new { @class = "text-danger" })
         </div>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.MonAll_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @if (ViewBag.Mon_Donation_list != null)
-            {
-                @Html.EditorFor(model => model.MonAll_ID, new { htmlAttributes = new { @class = "form-control" } })
-            }
-
-            @Html.ValidationMessageFor(model => model.MonAll_ID, "", new { @class = "text-danger" })
-        </div>
-    </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Create" class="btn btn-default" />
         </div>
     </div>
 </div>
-}
+    
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

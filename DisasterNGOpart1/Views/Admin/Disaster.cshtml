@@ -26,10 +26,15 @@
         <input class="input" name="Location" type="text" placeholder="Location" required />
         <input class="input" name="Dis_Description" type="text" placeholder="Disaster Description" required />
         <input class="input" name="AidTypes" type="text" placeholder="Aid Types" required />
+        
+            
+                <input asp-for="ActiveDisasters" class="form-check-input" />
+                <label class="form-check-label" asp-for="ActiveDisasters">Active Disasters</label>
+            
 
 
 
-        <button class="btn">Submit</button>
+            <button class="btn">Submit</button>
     </form>
     @*<script>
          function toggleOtherInput() {
